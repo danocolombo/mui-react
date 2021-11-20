@@ -17,8 +17,17 @@ export default createTheme({
         }
     },
     typography: {
-        h3: {
-            fontWeight: 300
+        tab: {
+            fontFamily: "Railway",
+            textTransform: "none", // deactivates the tabs uppercase font feature
+            fontWeight: "700",  //this has to be specified in the font import in public/index.html for Railway
+            fontSize: "1rem",   //use rem instead of px to make consistent on different displays
+        },
+        estimate: {
+            fontFamily: "Pacifico",
+            fontSize: "1rem",
+            textTransform: "none",
+            color: "white"
         }
     }
 })
