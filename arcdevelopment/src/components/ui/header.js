@@ -7,6 +7,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import logo from "../../assets/logo.svg";
 function ElevationScroll(props) {
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     height: "8em",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
   },
   logoContainer: {
     padding: 0,
@@ -39,6 +44,18 @@ const useStyles = makeStyles((theme) => ({
     ...theme.typography.tab, // bring in the theme settings and then add the following settings
     minWidth: 10, // spacing between tabs NOTE: integer, not a string
     marginLeft: "25px", // keep spacing the same across different displays, don't use rem
+  },
+  menu: {
+    backgroundColor: theme.palette.common.blue,
+    color: "white",
+    borderRadius: "0px",
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1,
+    },
   },
   button: {
     ...theme.typography.estimate,
@@ -52,41 +69,106 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const [tabIdentifier, setTabIdentifier] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleChange = (e, value) => {
     setTabIdentifier(value);
   };
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setMenuOpen(true);
+  };
+
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    setMenuOpen(false);
+  };
+
+  const handleMenuItemClick = (e, i) => {
+    setAnchorEl(null);
+    setMenuOpen(false);
+    setSelectedIndex(i);
+  };
+
+  const menuOptions = [
+    { name: "Services", link: "/services" },
+    { name: "Custom Software Development", link: "/customsoftware" },
+    { name: "Mobile App Development", link: "/mobileapps" },
+    { name: "Website Development", link: "/websites" },
+  ];
+
   useEffect(() => {
     //if trying to get / HOME , endure tabIdentifier is 0
-    if (window.location.pathname === "/" && tabIdentifier !== 0) {
-      setTabIdentifier(0);
-    } else if (
-      window.location.pathname === "/services" &&
-      tabIdentifier !== 1
-    ) {
-      setTabIdentifier(1);
-    } else if (
-      window.location.pathname === "/revolution" &&
-      tabIdentifier !== 2
-    ) {
-      setTabIdentifier(2);
-    } else if (window.location.pathname === "/about" && tabIdentifier !== 3) {
-      setTabIdentifier(3);
-    } else if (window.location.pathname === "/contact" && tabIdentifier !== 4) {
-      setTabIdentifier(4);
-    } else if (
-      window.location.pathname === "/estimate" &&
-      tabIdentifier !== 5
-    ) {
-      setTabIdentifier(5);
+    switch (window.location.pathname){
+      case "/":
+        if (tabIdentifier !== 0){
+          setTabIdentifier(0);
+        }
+        break;
+      case "/services":
+        if (tabIdentifier !== 1 || selectedIndex !== 0){
+          setTabIdentifier(1);
+          setSelectedIndex(0);
+        }
+        break;
+      case "/customsoftware":
+        if (tabIdentifier !== 1 || selectedIndex !== 1){
+          setTabIdentifier(1);
+          setSelectedIndex(1);
+        }
+        break;
+      case "/mobileapps":
+        if (tabIdentifier !== 1 || selectedIndex !== 2){
+          setTabIdentifier(1);
+          setSelectedIndex(2);
+        }
+        break;
+      case "/websites":
+        if (tabIdentifier !== 1 || selectedIndex !== 3){
+          setTabIdentifier(1);
+          setSelectedIndex(3);
+        }
+        break;
+      case "/revolution":
+        if (tabIdentifier !== 2){
+          setTabIdentifier(2);
+        }
+        break;
+      case "/about":
+        if (tabIdentifier !== 3){
+          setTabIdentifier(3);
+        }
+        break;
+      case "/contact":
+        if (tabIdentifier !== 4){
+          setTabIdentifier(4);
+        }
+        break;
+      case "/estimate":
+        if (tabIdentifier !== 5){
+          setTabIdentifier(5);
+        }
+        break;
+      default:
+        setTabIdentifier(0);
+        break;
     }
-  }, [tabIdentifier]);
+  }, [tabIdentifier,selectedIndex]);
   return (
     <React.Fragment>
       <ElevationScroll>
         <AppBar color="primary">
           <Toolbar disableGutters={true}>
-            <Button className={classes.logContainer} disableRipple component={Link} to="/" onClick={() => setTabIdentifier(0)}>
+            <Button
+              className={classes.logContainer}
+              disableRipple
+              component={Link}
+              to="/"
+              onClick={() => setTabIdentifier(0)}
+            >
               <img src={logo} className={classes.logo} alt="logo" />
             </Button>
             <Tabs
@@ -102,8 +184,11 @@ export default function Header(props) {
                 label="Home"
               />
               <Tab
+                aria-owns={anchorEl ? "simple-menu" : undefined}
+                aria-haspopup={anchorEl ? "true" : undefined}
                 className={classes.tab}
                 component={Link}
+                onMouseOver={(event) => handleClick(event)}
                 to="/services"
                 label="Services"
               />
@@ -134,6 +219,31 @@ export default function Header(props) {
             >
               Free Estimate
             </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={menuOpen}
+              onClose={handleClose}
+              classes={{ paper: classes.menu }}
+              MenuListProps={{ onMouseLeave: handleClose }}
+              elevation={0}
+            >
+              {menuOptions.map((option, i) => (
+                <MenuItem
+                  key={option}
+                  component={Link}
+                  to={option.link}
+                  classes={{ root: classes.menuItem }}
+                  onClick={(event) => {
+                    handleMenuItemClick(event, i); setMenuOpen(1);
+                    handleClose();
+                  }}
+                  selected={i === selectedIndex && menuOpen === 1}
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
+            </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

@@ -11,18 +11,18 @@ function App() {
         <Header />
         <Routes>
           <Route exact path="/" component={() => <div>HOME</div>}/>
-          <Route exact path="/services" component={() => <div><br /><br /><br /><br />services</div>} />
-          <Route exact path="/customsoftware" component={() => <div><br /><br /><br /><br />customsoftware</div>} />
-          <Route exact path="/mobileapps" component={() => <div><br /><br /><br /><br />mobileapps</div>} />
-          <Route exact path="/websites" component={() => <div><br /><br /><br /><br />websites</div>} />
-          <Route exact path="revolution" component={() => <div><br /><br /><br /><br />revolution</div>} />
-          <Route exact path="/about" component={() => <div><br /><br /><br /><br />about</div>} />
-          <Route exact path="/contact" component={() => <div><br /><br /><br /><br />contact</div>} />
+          <Route exact path="/services" component={() => <div>Services</div>} />
+          <Route exact path="/customsoftware" component={() => <div>Custom Software</div>} />
+          <Route exact path="/mobileapps" component={() => <div>Mobile Apps</div>} />
+          <Route exact path="/websites" component={() => <div>Websites</div>} />
+          <Route exact path="/revolution" component={() => <div>Revolution</div>} />
+          <Route exact path="/about" component={() => <div>About</div>} />
+          <Route exact path="/contact" component={() => <div>Contact Us</div>} />
           
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  );
+  );  
 }
 
 export default App;
