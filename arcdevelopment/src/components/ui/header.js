@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import { makeStyles, withThemeCreator } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import logo from "../../assets/logo.svg";
 
@@ -109,6 +108,9 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerItemSelected: {
     opacity: 1,
+  },
+  appBar: {
+    zIndex: theme.zIndex.modal + 1
   },
 }));
 
@@ -294,6 +296,7 @@ export default function Header(props) {
         onOpen={() => setOpenDrawer(true)}
         classes={{ paper: classes.drawer }}
       >
+        <div className={classes.toolbarMargin}/>
         <List disablePadding>
           <ListItem
             onClick={() => {
@@ -305,13 +308,10 @@ export default function Header(props) {
             component={Link}
             to="/"
             selected={tabIdentifier === 0}
+            classes={{selected: classes.drawerItemSelected}}
           >
             <ListItemText
-              className={
-                tabIdentifier === 0
-                  ? [classes.drawerItem, classes.drawerItemSelected]
-                  : classes.drawerItem
-              }
+              className={classes.drawerItem}
               disableTypography
             >
               Home
@@ -327,13 +327,10 @@ export default function Header(props) {
             component={Link}
             to="/services"
             selected={tabIdentifier === 1}
+            classes={{selected: classes.drawerItemSelected}}
           >
             <ListItemText
-              className={
-                tabIdentifier === 1
-                  ? [classes.drawerItem, classes.drawerItemSelected]
-                  : classes.drawerItem
-              }
+              className={classes.drawerItem}
               disableTypography
             >
               Services
@@ -349,13 +346,10 @@ export default function Header(props) {
             component={Link}
             to="/revolution"
             selected={tabIdentifier === 2}
+            classes={{selected: classes.drawerItemSelected}}
           >
             <ListItemText
-              className={
-                tabIdentifier === 2
-                  ? [classes.drawerItem, classes.drawerItemSelected]
-                  : classes.drawerItem
-              }
+              className={classes.drawerItem}
               disableTypography
             >
               Revolution
@@ -371,13 +365,10 @@ export default function Header(props) {
             component={Link}
             to="/about"
             selected={tabIdentifier === 3}
+            classes={{selected: classes.drawerItemSelected}}
           >
             <ListItemText
-              className={
-                tabIdentifier === 3
-                  ? [classes.drawerItem, classes.drawerItemSelected]
-                  : classes.drawerItem
-              }
+              className={classes.drawerItem}
               disableTypography
             >
               About Us
@@ -393,13 +384,10 @@ export default function Header(props) {
             component={Link}
             to="/contact"
             selected={tabIdentifier === 4}
+            classes={{selected: classes.drawerItemSelected}}
           >
             <ListItemText
-              className={
-                tabIdentifier === 4
-                  ? [classes.drawerItem, classes.drawerItemSelected]
-                  : classes.drawerItem
-              }
+              className={classes.drawerItem}
               disableTypography
             >
               Contact Us
@@ -416,13 +404,10 @@ export default function Header(props) {
             component={Link}
             to="/estimate"
             selected={tabIdentifier === 5}
+            classes={{selected: classes.drawerItemSelected}}
           >
             <ListItemText
-              className={
-                tabIdentifier === 5
-                  ? [classes.drawerItem, classes.drawerItemSelected]
-                  : classes.drawerItem
-              }
+              className={classes.drawerItem}
               disableTypography
             >
               Free Estimate
@@ -442,7 +427,7 @@ export default function Header(props) {
   return (
     <React.Fragment>
       <ElevationScroll>
-        <AppBar color="primary">
+        <AppBar position="fixed" className={classes.appBar} color="primary">
           <Toolbar disableGutters={true}>
             <Button
               className={classes.logContainer}
