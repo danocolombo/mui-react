@@ -208,12 +208,12 @@ export default function Header(props) {
         classes={{ paper: classes.menu }}
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
-        steyle={{zIndex: 1302}}
+        // style={{zIndex: 1302}}
         keepMounted
       >
         {menuOptions.map((option, i) => (
           <MenuItem
-            key={option}
+            key={`${option}${i}`}
             component={Link}
             to={option.link}
             classes={{ root: classes.menuItem }}
