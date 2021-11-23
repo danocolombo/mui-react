@@ -2,14 +2,14 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Header from "./ui/header";
 import theme from "./ui/theme";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Header />
-        <Routes>
+        <Switch>
           <Route exact path="/" component={() => <div>HOME</div>}/>
           <Route exact path="/services" component={() => <div>Services</div>} />
           <Route exact path="/customsoftware" component={() => <div>Custom Software</div>} />
@@ -19,7 +19,7 @@ function App() {
           <Route exact path="/about" component={() => <div>About</div>} />
           <Route exact path="/contact" component={() => <div>Contact Us</div>} />
           
-        </Routes>
+        </Switch>
       </BrowserRouter>
     </ThemeProvider>
   );  
