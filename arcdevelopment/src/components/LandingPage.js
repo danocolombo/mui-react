@@ -4,9 +4,11 @@ import Lottie from "react-lottie";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import Typography from "@material-ui/core/Typography";
-import animationData from "../animations/landinganimation/data";
+// import animationDataOrig from "../animations/landinganimation/data";
+import animationData from "../animations/development-options1/development-options.json";
 import customSoftwareIcon from "../assets/customSoftwareIcon.svg";
 import ButtonArrow from "./ui/ButtonArrow";
 const useStyles = makeStyles((theme) => ({
@@ -71,18 +73,42 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     marginBottom: "1em"
   },
+  icon: {
+    marginLeft: "2em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0
+    },
+  },
+  serviceContainer: {
+      marginTop: '12em',
+    [theme.breakpoints.down("xs")]: {
+        padding: 25,
+    },
+  },
 }));
 
 export default function LandingPage(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+
   const defaultOptions = {
     loop: true,
+    autoplay: true, 
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidMid Slice",
-    },
+      preserveAspectRatio: 'xMidYMid slice'
+    }
   };
+
+
+//   const defaultOptions = {
+//     loop: true,
+//     animationData: animationData,
+//     rendererSettings: {
+//       preserveAspectRatio: "xMidMid Slice",
+//     },
+//   };
 
   return (
     <React.Fragment>
@@ -137,15 +163,21 @@ export default function LandingPage(props) {
               </Grid>
             </Grid>
             <Grid sm item className={classes.animation}>
-              <Lottie options={defaultOptions} height={"100%"} width={"100%"} />
+              {/* <Lottie options={defaultOptions} height={"100%"} width={"100%"} /> */}
+              <Lottie options={defaultOptions}
+              height={"100%"}
+              width={"100%"}
+            //   isStopped={this.state.isStopped}
+            //   isPaused={this.state.isPaused}
+              />
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
           {" "}
           {/*============ SERVICES BLOCK ===============*/}
-          <Grid container direction="row">
-            <Grid item>
+          <Grid container direction="row" justify={matchesSM ? "center" : undefined} className={classes.serviceContainer}>
+            <Grid item style={{marginLeft: matchesSM ? 0 : "5em", textAlign: matchesSM ? "center" : undefined}}>
               <Typography variant="h4">Custom Software Development</Typography>
               <Typography variant="subtitle1" className={classes.subtitle}>
                 Save Energy. Save Time. Save Money!
@@ -164,7 +196,7 @@ export default function LandingPage(props) {
               </Button>
             </Grid>
             <Grid item>
-              <img alt="image" src={customSoftwareIcon} />
+              <img className={classes.icon} alt="image" src={customSoftwareIcon} />
             </Grid>
           </Grid>
         </Grid>
