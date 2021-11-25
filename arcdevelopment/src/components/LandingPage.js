@@ -7,62 +7,70 @@ import Button from "@material-ui/core/Button";
 
 import Typography from "@material-ui/core/Typography";
 import animationData from "../animations/landinganimation/data";
+import customSoftwareIcon from "../assets/customSoftwareIcon.svg";
 import ButtonArrow from "./ui/ButtonArrow";
 const useStyles = makeStyles((theme) => ({
-    animation: {
-        maxwidth: "50em",
-        minwidth: "21em",
-        marginTop: "2em",
-        marginLeft: "10%",
-        [theme.breakpoints.down("sm")]: {
-            maxWidth: "30em",
-        },
+  animation: {
+    maxwidth: "50em",
+    minwidth: "21em",
+    marginTop: "2em",
+    marginLeft: "10%",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "30em",
     },
-    estimateButton: {
-        ...theme.typography.estimate,
-        backgroundColor: theme.palette.common.orange,
-        borderRadius: 50,
-        height: 45,
-        width: 145,
-        marginRight: 40,
-        "&:hover": {
-          backgroundColor: theme.palette.secondary.light
-        }
-      },
-      buttonContainer: {
-        marginTop: "1em"
-      },
-      learnButtonHero: {
-        ...theme.typography.learnButton,
-        fontSize: "0.9rem",
-        height: 45,
-        width: 145
-      },
-      learnButton: {
-        ...theme.typography.learnButton,
-        fontSize: "0.7rem",
-        height: 35,
-        padding: 5,
-        [theme.breakpoints.down("sm")]: {
-          marginBottom: "2em"
-        }
-      },
-      mainContainer: {
-        marginTop: "5em",
-        [theme.breakpoints.down("md")]: {
-          marginTop: "3em"
-        },
-        [theme.breakpoints.down("xs")]: {
-          marginTop: "2em"
-        }
-      },
-      heroTextContainer: {
-        minWidth: "21.5em",
-        marginLeft: "1em",
-        [theme.breakpoints.down("xs")]: {
-          marginLeft: 0
-        }
-      },
+  },
+  estimateButton: {
+    ...theme.typography.estimate,
+    backgroundColor: theme.palette.common.orange,
+    borderRadius: 50,
+    height: 45,
+    width: 145,
+    marginRight: 40,
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+    },
+  },
+  buttonContainer: {
+    marginTop: "1em",
+  },
+  learnButtonHero: {
+    ...theme.typography.learnButton,
+    fontSize: "0.9rem",
+    height: 45,
+    width: 145,
+  },
+  learnButton: {
+    ...theme.typography.learnButton,
+    fontSize: "0.7rem",
+    height: 35,
+    padding: 5,
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "2em",
+    },
+  },
+  mainContainer: {
+    marginTop: "5em",
+    [theme.breakpoints.down("md")]: {
+      marginTop: "3em",
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "2em",
+    },
+  },
+  heroTextContainer: {
+    minWidth: "21.5em",
+    marginLeft: "1em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+  },
+  specialText: {
+    fontFamily: "Pacifico",
+    color: theme.palette.common.orange,
+  },
+  subtitle: {
+    marginBottom: "1em"
+  },
 }));
 
 export default function LandingPage(props) {
@@ -80,6 +88,8 @@ export default function LandingPage(props) {
     <React.Fragment>
       <Grid container direction="column" className={classes.mainContainer}>
         <Grid item>
+          {" "}
+          {/*========= HERO BLOCK ==========*/}
           <Grid
             container
             justify="flex-end"
@@ -128,6 +138,33 @@ export default function LandingPage(props) {
             </Grid>
             <Grid sm item className={classes.animation}>
               <Lottie options={defaultOptions} height={"100%"} width={"100%"} />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
+          {" "}
+          {/*============ SERVICES BLOCK ===============*/}
+          <Grid container direction="row">
+            <Grid item>
+              <Typography variant="h4">Custom Software Development</Typography>
+              <Typography variant="subtitle1" className={classes.subtitle}>
+                Save Energy. Save Time. Save Money!
+              </Typography>
+              <Typography variant="subtitle1">
+                Complete digitial solutions, from investigation to{" "}
+                <span className={classes.specialText}>celebration!</span>
+              </Typography>
+              <Button variant="outlined" className={classes.learnButton}>
+                <span style={{ marginRight: 10 }}>Learn More</span>
+                <ButtonArrow
+                  width={15}
+                  height={15}
+                  fill={theme.palette.common.blue}
+                />
+              </Button>
+            </Grid>
+            <Grid item>
+              <img alt="image" src={customSoftwareIcon} />
             </Grid>
           </Grid>
         </Grid>
